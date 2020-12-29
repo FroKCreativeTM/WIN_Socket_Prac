@@ -1,7 +1,12 @@
+/*
+이 소스의 원 출처는 https://github.com/GP101/DiconServer/blob/master/prerequisite/Win32Thread/Win32Thread.cpp 입니다.
+*/
+
 #include <windows.h>
 #include <cstdio>
 
 HANDLE ghEvents[2];
+int g_Value = 0;
 
 DWORD WINAPI ThreadProc(LPVOID);
 
@@ -11,7 +16,6 @@ int main(void)
     DWORD i, dwEvent, dwThreadID;
 
     // Create two event objects
-
     for (i = 0; i < 2; i++)
     {
         ghEvents[i] = CreateEvent(
@@ -28,7 +32,6 @@ int main(void)
     }
 
     // Create a thread
-
     hThread = CreateThread(
         NULL,         // default security attributes
         0,            // default stack size
@@ -44,7 +47,6 @@ int main(void)
     }
 
     // Wait for the thread to signal one of the event objects
-
     dwEvent = WaitForMultipleObjects(
         2,           // number of objects in array
         ghEvents,     // array of objects
@@ -52,7 +54,6 @@ int main(void)
         5000);       // five-second wait
 
     // The return value indicates which event is signaled
-
     switch (dwEvent)
     {
         // ghEvents[0] was signaled
